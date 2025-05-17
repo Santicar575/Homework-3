@@ -8,6 +8,8 @@ MedicionBase::MedicionBase(const MedicionBase& other){
     tiempoMedicion = std::make_unique<float>(other.getTiempo());
 }
 
+// Método getter para obtener el tiempo de medición.
+// Lanza una excepción si el unique_ptr no ha sido inicializado.
 float MedicionBase::getTiempo() const{
     if(tiempoMedicion){
         return *tiempoMedicion;
