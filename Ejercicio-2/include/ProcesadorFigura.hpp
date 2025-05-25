@@ -12,7 +12,7 @@ template <typename T>
 class ProcesadorFigura{
     public:
         static float calcArea(const T&){
-            throw "No hay un area especificada para esta figura";
+            throw std::runtime_error("No hay un area especificada para esta figura");
         }
 };
 

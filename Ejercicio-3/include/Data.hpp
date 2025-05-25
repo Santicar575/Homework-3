@@ -4,39 +4,50 @@
 #include <vector>
 #include <concepts>
 
+
+
+//Concept para verificar si el tipo es double
 template <typename T>
 concept IsDouble = std::is_same_v<T,double>;
 
+//Concept para verificar si el tipo es string o const char*
 template <typename T>
 concept IsString = std::is_same_v<T,std::string> || std::is_same_v<T,const char*>;
 
+//Concept para verificar si el tipo es un vector de enteros
 template <typename T>
 concept IsIntList = std::is_same_v<T,std::vector<int>>;
 
+// Clase genérica que almacena un vector de valores y permite agregarlos según su tipo
+template <typename T>
 class Data{
     private:
-        std::vector<double> doubleVector;
-        std::vector<std::string> stringVector;
-        std::vector<std::vector<int>> intListVector;
-
+        std::vector<T> vector; // Contenedor interno de los datos
     public:
-        template <typename T>
+        Data() = default;
+        
+        /**
+         * Agrega un valor al vector interno.
+         * El método valida el tipo de T en tiempo de compilación con if constexpr.
+        */
         void addValue(T value){
             if constexpr (IsDouble<T>){
-                doubleVector.push_back(value);
+                vector.push_back(value);
             }
             else if constexpr (IsString<T>){
-                stringVector.push_back(value);
+                vector.push_back(value);
             }
             else if constexpr (IsIntList<T>){
-                intListVector.push_back(value);
+                vector.push_back(value);
             }
             else{
                 static_assert(IsDouble<T> || IsString<T> || IsIntList<T>, "Tipo de dato no soportado");
             }
         }
 
-        const std::vector<double>& getDoubleVector() const {return doubleVector;}
-        const std::vector<std::string>& getStringVector() const {return stringVector;}
-        const std::vector<std::vector<int>>& getIntListVector() const {return intListVector;}
+        /**
+         * Devuelve una referencia constante al vector interno (solo lectura).
+         * @return vector
+        */
+        const std::vector<T>& getVector() const {return vector;}
 };

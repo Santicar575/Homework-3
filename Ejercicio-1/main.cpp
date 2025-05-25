@@ -5,8 +5,7 @@
 #include "SaveFlightData.hpp"
 
 int main(){
-    //PREGUNTAR si esta bien agregarle la f o dejarlo asi y hacer cambios en el codigo
-    //Posicion posicion(-34.6f, -58.4f, 950.0f, 5.3);
+
     Posicion posicion(-34.6f, -58.4f, 950.0f, 5.3f);
     posicion.imprimir();
     std::cout << std::endl;

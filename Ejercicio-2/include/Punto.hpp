@@ -5,6 +5,7 @@ class Punto{
         float x;
         float y;
     public:
+        // Constructor que inicializa las coordenadas del punto
         Punto(float x, float y);
         void setX(float x);
         float getX() const;

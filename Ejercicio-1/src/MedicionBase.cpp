@@ -8,7 +8,7 @@ MedicionBase::MedicionBase(const MedicionBase& other){
     tiempoMedicion = std::make_unique<float>(other.getTiempo());
 }
 
-// Método getter para obtener el tiempo de medición.
+// Metodo getter para obtener el tiempo de medición.
 // Lanza una excepción si el unique_ptr no ha sido inicializado.
 float MedicionBase::getTiempo() const{
     if(tiempoMedicion){
@@ -18,3 +18,12 @@ float MedicionBase::getTiempo() const{
     }
 }
 
+void MedicionBase::serializar(std::ofstream& out) const{
+    out.write(reinterpret_cast<const char*>(tiempoMedicion.get()), sizeof(float));
+}
+
+void MedicionBase::deserializar(std::ifstream& in){
+    //Reservo memoria dinamica para tiempoMedicion
+    tiempoMedicion = std::make_unique<float>();
+    in.read(reinterpret_cast<char*>(tiempoMedicion.get()), sizeof(float));
+}

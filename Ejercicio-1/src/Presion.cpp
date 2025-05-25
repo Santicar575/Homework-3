@@ -21,7 +21,7 @@ void Presion::imprimir() const{
 // Serializa los datos de la presión y el tiempo de medición en un archivo binario.
 // El orden es: tiempo de medición, presión dinámica, presión estática.
 void Presion::serializar(std::ofstream& out) const{
-    out.write(reinterpret_cast<const char*>(tiempoMedicion.get()), sizeof(float));
+    MedicionBase::serializar(out);
     out.write(reinterpret_cast<const char*>(&presionDinamica), sizeof(float));
     out.write(reinterpret_cast<const char*>(&presionEstatica), sizeof(float));
 }
@@ -29,8 +29,7 @@ void Presion::serializar(std::ofstream& out) const{
 // Deserializa los datos de la presión y el tiempo de medición desde un archivo binario.
 // Lee en el mismo orden en el que fueron escritos: tiempo, presión dinámica, presión estática.
 void Presion::deserializar(std::ifstream& in){
-    tiempoMedicion = std::make_unique<float>();
-    in.read(reinterpret_cast<char*>(tiempoMedicion.get()), sizeof(float));
+    MedicionBase::deserializar(in);
     in.read(reinterpret_cast<char*>(&presionDinamica), sizeof(float));
     in.read(reinterpret_cast<char*>(&presionEstatica), sizeof(float));
 }

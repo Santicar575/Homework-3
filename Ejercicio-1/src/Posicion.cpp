@@ -25,7 +25,7 @@ void Posicion::imprimir() const{
 // Serializa los datos del objeto Posicion en un archivo binario.
 // Escribe en orden: tiempo de medición, latitud, longitud y altitud.
 void Posicion::serializar(std::ofstream& out) const{
-    out.write(reinterpret_cast<const char*>(tiempoMedicion.get()), sizeof(float));
+    MedicionBase::serializar(out);
     out.write(reinterpret_cast<const char*>(&latitud), sizeof(float));
     out.write(reinterpret_cast<const char*>(&longitud), sizeof(float));
     out.write(reinterpret_cast<const char*>(&altitud), sizeof(float));
@@ -34,9 +34,7 @@ void Posicion::serializar(std::ofstream& out) const{
 // Deserializa los datos del objeto Posicion desde un archivo binario.
 // Lee en el mismo orden en el que fueron escritos: tiempo, latitud, longitud, altitud.
 void Posicion::deserializar(std::ifstream& in){
-    //Reservo memoria dinamica para tiempoMedicion
-    tiempoMedicion = std::make_unique<float>();
-    in.read(reinterpret_cast<char*>(tiempoMedicion.get()), sizeof(float));
+    MedicionBase::deserializar(in);
     in.read(reinterpret_cast<char*>(&latitud), sizeof(float));
     in.read(reinterpret_cast<char*>(&longitud), sizeof(float));
     in.read(reinterpret_cast<char*>(&altitud), sizeof(float));
