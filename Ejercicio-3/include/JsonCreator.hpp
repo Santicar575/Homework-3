@@ -42,4 +42,6 @@ class JsonCreator{
         void printJson() const{
             std::cout<<jsonStr<<std::endl;
         }
+
+        ~JsonCreator() = default;
 };

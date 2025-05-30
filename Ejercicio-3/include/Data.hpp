@@ -33,6 +33,14 @@ class Data{
             vector.push_back(value);
         }
 
+        /**
+         * Procesa los datos del vector y devuelve una cadena formateada.
+         * Dependiendo del tipo de dato, se formatea de manera diferente.
+         * - Para double: se separan por comas y se cierran con corchetes.
+         * - Para string: se envuelven en comillas y se separan por comas.
+         * - Para listas de enteros: cada lista se imprime en una nueva línea con sangría.
+         * @return cadena formateada
+        */
         std::string processData() const{
             if constexpr (IsDouble<T>){
                 size_t currentSize;
@@ -107,4 +115,6 @@ class Data{
          * @return vector
         */
         const std::vector<T>& getVector() const {return vector;}
+
+        ~Data() = default;
 };
